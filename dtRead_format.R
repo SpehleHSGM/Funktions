@@ -13,4 +13,4 @@ outlier <- function(dp){
   return(out)
 }
 
-dt[,Flag_out:=outlier(Fischmasse.Knolle), by = Variante]
+dt[,Flag_out:=outlier(trait), by = Variante]
