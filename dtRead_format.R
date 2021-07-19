@@ -13,4 +13,4 @@ outlier <- function(dp){
   return(out)
 }
 
-dt[,Flag_outlier:=outlier(eval(traitName)),by=Variante]
+dt[,Flag_outlier:=outlier(eval(traitName)),by=interaction(CO2_Stufe,N_Form)]
