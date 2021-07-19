@@ -1,4 +1,4 @@
-# read
+# read data
 dt <- fread("https://raw.githubusercontent.com/SpehleHSGM/Datasets/main/datatable.csv",sep = ";",dec = ",",check.names=T)
 
 # format
@@ -13,4 +13,15 @@ outlier <- function(dp){
   return(out)
 }
 
+# add column with boolean "Flag_outlier" (TRUE/FALSE)
 dt[,Flag_outlier:=outlier(eval(traitName)),by=interaction(CO2_Stufe,N_Form)]
+
+# data.table aggregate of trait means by Wdh*CO2_Stufe*N_Form
+dt_means <- dt[ Flag_outlier==FALSE,.(Knollenvolumen=mean(Knollenvolumen),
+                  Frischmasse.Knolle=mean(Frischmasse.Knolle),
+                  count=.N,
+                  mainPlots=factor(Wdh:CO2_Stufe)),
+               by=list(Wdh,CO2_Stufe,N_Form)]
+
+# add column with boolean "Flag_outlier" (TRUE/FALSE)
+dt_means[,Flag_outlier:=outlier(eval(traitName)),by=interaction(CO2_Stufe,N_Form)]
