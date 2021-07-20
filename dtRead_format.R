@@ -36,4 +36,4 @@ dt_means <- dt[ Flag_outlier.iqr==FALSE,.(Knollenvolumen=mean(Knollenvolumen),
                by=list(Wdh,CO2_Stufe,N_Form)]
 
 # add column with boolean "Flag_outlier" (TRUE/FALSE)
-dt_means[,Flag_outlier:=outlier.iqr(eval(traitName)),by=interaction(CO2_Stufe,N_Form)]
+dt_means[,Flag_outlier.iqr:=outlier.iqr(eval(traitName)),by=interaction(CO2_Stufe,N_Form)]
