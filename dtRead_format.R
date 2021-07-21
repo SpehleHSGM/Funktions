@@ -30,7 +30,7 @@ dt[,Flag_outlier.mad:=outlier.mad(eval(traitName)),by=interaction(CO2_Stufe,N_Fo
 dt[,Flag_outlier.bonf:=outlierTest(lm(eval(traitName)~CO2_Stufe*N_Form),cutoff=Inf, n.max=Inf,order=FALSE)$bonf.p < 0.05]
 
 # data.table aggregate of trait means by Wdh*CO2_Stufe*N_Form
-dt_means <- dt[ Flag_outlier.iqr==FALSE,.(Knollenvolumen=mean(Knollenvolumen),
+dt_means <- dt[ ,.(Knollenvolumen=mean(Knollenvolumen),
                   Frischmasse.Knolle=mean(Frischmasse.Knolle),
                   count=.N,
                   mainPlots=factor(Wdh:CO2_Stufe)),
